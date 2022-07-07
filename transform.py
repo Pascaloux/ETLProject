@@ -1,7 +1,7 @@
 # Import des librairies
 import numpy as np
 
-def transform(df):
+def transform_valeurs_Foncieres(df):
     # Suppression des colonnes vides
     df = df.drop(['Code service CH','Reference document','1 Articles CGI','2 Articles CGI','3 Articles CGI','4 Articles CGI','5 Articles CGI','Identifiant local'], axis=1)
 
@@ -39,4 +39,8 @@ def transform(df):
     df['Surface Carrez du 4eme lot']    = df['Surface Carrez du 4eme lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 5eme lot']    = df['Surface Carrez du 5eme lot'].str.replace(',', '.', regex=True).astype('float')
 
+    return df
+
+def transform_taux(df):
+    df=df.drop(["success", "timestamp","base","date"], axis=1)
     return df
