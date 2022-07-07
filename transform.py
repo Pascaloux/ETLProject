@@ -44,3 +44,11 @@ def transform_valeurs_Foncieres(df):
 def transform_taux(df):
     df=df.drop(["success", "timestamp","base","date"], axis=1)
     return df
+
+
+def transform(data,df_taux):
+    taux_change = 1/df_taux.loc["USD"].iloc[0]
+    data[["Market Cap (US$ Billion)"]]=data[["Market Cap (US$ Billion)"]].astype(float)
+    data["Market_Cap(Eur_Billion)"] = data["Market Cap (US$ Billion)"]*taux_change
+    data["Market_Cap(Eur_Billion)"]= data["Market Cap (Eur Billion)"].round(2)
+    return data[['Name','Market_Cap(Eur_Billion)']]
