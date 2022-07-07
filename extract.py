@@ -1,7 +1,6 @@
 # Import des librairies
 import pandas as pd
 import bs4
-import html5lib
 import requests
 from urllib import request
 
@@ -27,6 +26,13 @@ def extract_Capitaux():
     data = pd.DataFrame({"Name" : Noms, "Market Cap (US$ Billion)" : Capitalisation})
     data["Market Cap (US$ Billion)"]= data["Market Cap (US$ Billion)"].str.replace(r"\[.*\]","")
     return data
+
+def extract_taux():
+    url = "https://api.apilayer.com/exchangerates_data/latest?base=EUR&apikey=q2RtvboFr7QloNcorghYyDhcMgKl5YKc"
+    req = requests.get(url)
+    contenu_json = req.json()
+    df = pd.DataFrame(contenu_json)
+    return df
 
 
 
