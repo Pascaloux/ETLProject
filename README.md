@@ -50,6 +50,13 @@ colonnes inutiles :
     . 5 Articles CGI
     . Identifiant local
 
+# extract "market capitalization of largest banks"
+
+colonnes pertinentes : 
+    . Name                         = Nom de la banque                                                                                 - Pas de null
+    . Market Cap (US$ Billion)     = Capitalisation boursière en milliards de dollars                                                 - Pas de null
+   
+
 # transform des valeurs foncières
 
 colonnes transformées en string: 
@@ -86,3 +93,12 @@ colonnes transformées en float :
     . Surface Carrez du 3eme lot
     . Surface Carrez du 4eme lot
     . Surface Carrez du 5eme lot
+
+# transform # extract "market capitalization of largest banks"
+
+colonnes transformée en float: 
+    . Market Cap (US$ Billion)
+
+colonnes transformée du Dollar à l'Euro:
+    . Market Cap (US$ Billion) ---->  Market_Cap(Eur_Billion)
+    
