@@ -46,7 +46,7 @@ def transform_taux(df):
     return df
 
 
-def transform(data,df_taux):
+def transform_Capitaux(data,df_taux):
     taux_change = 1/df_taux.loc["USD"].iloc[0]
     data[["Market Cap (US$ Billion)"]]=data[["Market Cap (US$ Billion)"]].astype(float)
     data["Market_Cap(Eur_Billion)"] = data["Market Cap (US$ Billion)"]*taux_change
