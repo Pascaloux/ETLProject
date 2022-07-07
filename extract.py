@@ -39,3 +39,5 @@ def extract_taux():
 
 
 
+
+
