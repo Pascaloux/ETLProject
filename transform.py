@@ -23,7 +23,6 @@ def transform_valeurs_Foncieres(df):
     df['Type local']                = df['Type local'].astype('string')
     df['Nature culture']            = df['Nature culture'].astype('string')
     df['Nature culture speciale']   = df['Nature culture speciale'].astype('string')
-    df['Surface Carrez du 1er lot']   = df['Surface Carrez du 1er lot'].astype('string')
 
     # Changer le type des colonnes numériques avec uniquement des entiers en int64
     df['No voie']               = df['No voie'].replace(np.nan, 0).astype('int64')
@@ -33,7 +32,7 @@ def transform_valeurs_Foncieres(df):
 
     # Changer le type des colonnes numériques avec des chiffres à virgules en float
     df['Valeur fonciere']               = df['Valeur fonciere'].str.replace(',', '.', regex=True).astype('float')
-    df['Surface Carrez du 1er lot']     = df['Surface Carrez du 1er lot'].str.replace(',', '.', regex=True).astype('float')
+    df['Surface Carrez du 1er lot']     = df['Surface Carrez du 1er lot'].str.replace(',', '.', regex=True).astype('string')
     df['Surface Carrez du 2eme lot']    = df['Surface Carrez du 2eme lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 3eme lot']    = df['Surface Carrez du 3eme lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 4eme lot']    = df['Surface Carrez du 4eme lot'].str.replace(',', '.', regex=True).astype('float')
