@@ -1,5 +1,5 @@
 from base import Base, engine
-from tables import ValeursFoncieres
+from table import ValeursFoncieres
 
 
 if __name__ == "__main":  
