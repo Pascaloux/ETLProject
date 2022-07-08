@@ -49,3 +49,8 @@ class Bank_capitalisation(Base):
     Name = Column(String(500))
     Market_Cap = Column(Float)
 
+class Taux(Base):
+    __tablename__ = "taux"
+    id = Column(Integer,primary_key=True)
+    devise= Column(String(4))
+    valeur = Column(Float)
