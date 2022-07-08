@@ -29,3 +29,11 @@ def load_taux(df):
         row = Taux(devise=taux['devise'],valeur=taux['rates'])
         session.add(row)
     session.commit()
+
+def load_Capitaux(data):
+    result = [{col:getattr(row, col) for col in data} for row in data.itertuples()]
+    for item in result:
+        row = Bank_capitalisation(Name=item['Name'], Market_Cap = item['Market_Cap_Euro_Billion'] )
+        session.add(row)
+    session.commit()
+    
