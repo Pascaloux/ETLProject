@@ -5,11 +5,11 @@ from sqlalchemy.orm import *
 username = input("username : ")
 password = input("password : ")
 
-path = "mysql://"+username+":"+password+"@localhost:3306/DatabaseETL"
+path="mysql://"+username+":"+password+"@localhost:3306/test"
 engine = create_engine(path)
-session = Session(engine)
+
 if not database_exists(path):
     create_database(path)
-
+    
 
 Base = declarative_base()
