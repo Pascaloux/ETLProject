@@ -5,7 +5,7 @@ import requests
 from urllib import request
 
 
-def extract_valeurs_Foncieres():
+def extract_valeurs_foncieres():
     print("Extraction des valeurs foncières")
     # Lien des valeurs foncières en 2021
     url = 'https://www.data.gouv.fr/fr/datasets/r/817204ac-2202-4b4a-98e7-4184d154d98c'
@@ -15,7 +15,7 @@ def extract_valeurs_Foncieres():
 
     return df
 
-def extract_Capitaux():
+def extract_capitaux():
     url = "https://en.wikipedia.org/wiki/List_of_largest_banks"
     html_data = request.urlopen(url).read()
     soup = bs4.BeautifulSoup(html_data, "lxml")

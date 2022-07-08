@@ -2,8 +2,8 @@
 import numpy as np
 
 
-def transform_valeurs_Foncieres(df):
-    print("Transformation des valeurs fonccières")
+def transform_valeurs_foncieres(df):
+    print("Transformation des valeurs foncières")
     
     # Suppression des colonnes vides
     df = df.drop(['Code service CH','Reference document','1 Articles CGI','2 Articles CGI','3 Articles CGI','4 Articles CGI','5 Articles CGI','Identifiant local'], axis=1)
@@ -48,7 +48,7 @@ def transform_taux(df):
     return df
 
 
-def transform_Capitaux(data,df_taux):
+def transform_capitaux(data,df_taux):
     taux_change = 1/df_taux.loc["USD"].iloc[0]
     data[["Market Cap (US$ Billion)"]]=data[["Market Cap (US$ Billion)"]].astype(float)
     data["Market_Cap(Eur_Billion)"] = data["Market Cap (US$ Billion)"]*taux_change
