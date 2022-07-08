@@ -6,6 +6,7 @@ from urllib import request
 
 
 def extract_valeurs_Foncieres():
+    print("Extraction des valeurs foncières")
     # Lien des valeurs foncières en 2021
     url = 'https://www.data.gouv.fr/fr/datasets/r/817204ac-2202-4b4a-98e7-4184d154d98c'
 

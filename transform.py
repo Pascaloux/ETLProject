@@ -1,7 +1,10 @@
 # Import des librairies
 import numpy as np
 
+
 def transform_valeurs_Foncieres(df):
+    print("Transformation des valeurs fonccières")
+    
     # Suppression des colonnes vides
     df = df.drop(['Code service CH','Reference document','1 Articles CGI','2 Articles CGI','3 Articles CGI','4 Articles CGI','5 Articles CGI','Identifiant local'], axis=1)
 
@@ -32,7 +35,7 @@ def transform_valeurs_Foncieres(df):
 
     # Changer le type des colonnes numériques avec des chiffres à virgules en float
     df['Valeur fonciere']               = df['Valeur fonciere'].str.replace(',', '.', regex=True).astype('float')
-    df['Surface Carrez du 1er lot']     = df['Surface Carrez du 1er lot'].str.replace(',', '.', regex=True).astype('string')
+    df['Surface Carrez du 1er lot']     = df['Surface Carrez du 1er lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 2eme lot']    = df['Surface Carrez du 2eme lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 3eme lot']    = df['Surface Carrez du 3eme lot'].str.replace(',', '.', regex=True).astype('float')
     df['Surface Carrez du 4eme lot']    = df['Surface Carrez du 4eme lot'].str.replace(',', '.', regex=True).astype('float')

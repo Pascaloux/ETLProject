@@ -19,25 +19,25 @@ colonnes pertinentes :
     . Prefixe de section        = de 1 à 950                                                                                  - Beaucoup de null
     . Section                   = de A à Z, de AA à ZZ                                                                             - Pas de null
     . No plan                   = de 1 à 9844                                                                                      - Pas de null
-    . No Volume                 = de 1 à 211 402, 1B, 3B, DEUX, P419004, TROIS, UN                                            - Beaucoup de null
+    . No Volume                 = de 1 à 211 402, A, B, D, 1B, 3B, P419004, UN, DEUX, TROIS, ET                               - Beaucoup de null
     . 1er lot                   = numérique ou alphanumérique jusqu'à 10 caractères                                           - Beaucoup de null
-    . Surface Carrez du 1er lot = de 1 à 9614                                                                                 - Beaucoup de null
+    . Surface Carrez du 1er lot = de 0,01 à 9614                                                                              - Beaucoup de null
     . 2eme lot                  = numérique ou alphanumérique jusqu'à 10 caractères                                           - Beaucoup de null
-    . Surface Carrez du 2eme lot = de 0,7 à 4950                                                                              - Beaucoup de null
+    . Surface Carrez du 2eme lot= de 0,5 à 7392                                                                               - Beaucoup de null
     . 3eme lot                  = numérique ou alphanumérique jusqu'à 10 caractères                                           - Beaucoup de null
-    . Surface Carrez du 2eme lot = de 0,2 à 1764,67                                                                           - Beaucoup de null
+    . Surface Carrez du 3eme lot= de 0,2 à 2550                                                                               - Beaucoup de null
     . 4eme lot                  = numérique ou alphanumérique jusqu'à 10 caractères                                           - Beaucoup de null
-    . Surface Carrez du 2eme lot = de 3,3 à 675,91                                                                            - Beaucoup de null
+    . Surface Carrez du 4eme lot= de 1,1 à 6881                                                                               - Beaucoup de null
     . 5eme lot                  = numérique ou alphanumérique jusqu'à 10 caractères                                           - Beaucoup de null
-    . Surface Carrez du 2eme lot = de 1,07 à 859,11                                                                           - Beaucoup de null
-    . Nombre de lots            = de 0 à 75                                                                                        - Pas de null
+    . Surface Carrez du 5eme lot= de 0,4 à 1451,59                                                                            - Beaucoup de null
+    . Nombre de lots            = de 0 à 138                                                                                       - Pas de null
     . Code type local           = de 1 à 4                                                                                    - Beaucoup de null
     . Type local                = Maison(1), Appartement(2), Dépendance(3), Local industriel, commercial ou assimilé(4)       - Beaucoup de null
-    . Surface réelle bati       = de 0 à 125 530                                                                              - Beaucoup de null
-    . Nombre pieces principales = de 0 à 55                                                                                   - Beaucoup de null
+    . Surface reelle bati       = de 0 à 237 500                                                                              - Beaucoup de null
+    . Nombre pieces principales = de 0 à 89                                                                                   - Beaucoup de null
     . Nature culture            = 1 ou 2 lettres                                                                              - Beaucoup de null
     . Nature culture speciale   = 4 ou 5 lettres                                                                              - Beaucoup de null
-    . Surface terrain           = de 0 à 592 047                                                                              - Beaucoup de null
+    . Surface terrain           = de 0 à 2 967 329                                                                            - Beaucoup de null
 
 colonnes inutiles :
 - colonne vides :
@@ -50,11 +50,12 @@ colonnes inutiles :
     . 5 Articles CGI
     . Identifiant local
 
+
 # extract "market capitalization of largest banks"
 
 colonnes pertinentes : 
-    . Name                         = Nom de la banque                                                                                 - Pas de null
-    . Market Cap (US$ Billion)     = Capitalisation boursière en milliards de dollars                                                 - Pas de null
+    . Name                         = Nom de la banque                                                                              - Pas de null
+    . Market Cap (US$ Billion)     = Capitalisation boursière en milliards de dollars                                              - Pas de null
    
 
 # transform des valeurs foncières
@@ -94,11 +95,12 @@ colonnes transformées en float :
     . Surface Carrez du 4eme lot
     . Surface Carrez du 5eme lot
 
+
 # transform # extract "market capitalization of largest banks"
 
-colonnes transformée en float: 
+colonnes transformées en float: 
     . Market Cap (US$ Billion)
 
-colonnes transformée du Dollar à l'Euro:
+colonnes transformées du Dollar à l'Euro:
     . Market Cap (US$ Billion) ---->  Market_Cap(Eur_Billion)
     
