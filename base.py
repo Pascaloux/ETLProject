@@ -11,4 +11,5 @@ session = Session(engine)
 if not database_exists(path):
     create_database(path)
 
+
 Base = declarative_base()
