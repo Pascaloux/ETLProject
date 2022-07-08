@@ -43,3 +43,9 @@ class ValeursFoncieres(Base):
     NatureCultureSpeciale   = Column(String(5))
     SurfaceTerrain          = Column(Integer)
 
+class Bank_capitalisation(Base):
+    __tablename__ = "Bank_capitalisation"
+    id = Column(Integer,primary_key=True)
+    Name = Column(String(500))
+    Market_Cap = Column(Float)
+
