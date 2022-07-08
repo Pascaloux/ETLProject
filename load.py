@@ -1,10 +1,11 @@
 from sqlalchemy import *
 from sqlalchemy_utils import *
 from sqlalchemy.orm import *
+from base import *
 from table import *
 
 
-def load(df):
+def load_valeurs_foncieres(df):
     print("Chargement des valeurs foncières")
     result=df.to_dict('records')
     
