@@ -5,6 +5,15 @@ import requests
 from urllib import request
 
 
+def extract_date_valeurs_foncieres():
+    url = "https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/"
+    html_data = request.urlopen(url).read()
+    soup = bs4.BeautifulSoup(html_data, "lxml")
+    row  = soup.find_all('div',{'class' : 'fr-text--sm fr-mb-0 text-grey-380'})[0]
+    date = ' '.join(row.getText().strip().split()[4:7])
+    return date   
+
+
 def extract_valeurs_foncieres():
     print("Extraction des valeurs foncières")
     # Lien des valeurs foncières en 2021
@@ -12,8 +21,9 @@ def extract_valeurs_foncieres():
 
     # Enregistrement des données dans un dataframe avec le bon format date
     df = pd.read_csv(url, delimiter='|', parse_dates=['Date mutation'], dayfirst=True)
-
+    
     return df
+
 
 def extract_capitaux():
     url = "https://en.wikipedia.org/wiki/List_of_largest_banks"
@@ -27,6 +37,7 @@ def extract_capitaux():
     data = pd.DataFrame({"Name" : Noms, "Market Cap (US$ Billion)" : Capitalisation})
     data["Market Cap (US$ Billion)"]= data["Market Cap (US$ Billion)"].str.replace(r"\[.*\]","")
     return data
+
 
 def extract_taux():
     url = "https://api.apilayer.com/exchangerates_data/latest?base=EUR&apikey=q2RtvboFr7QloNcorghYyDhcMgKl5YKc"

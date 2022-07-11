@@ -43,6 +43,7 @@ def transform_valeurs_foncieres(df):
 
     return df
 
+
 def transform_taux(df):
     df=df.drop(["success", "timestamp","base","date"], axis=1)
     return df

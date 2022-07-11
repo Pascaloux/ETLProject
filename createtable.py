@@ -1,6 +1,6 @@
 from base import Base, engine
-from table import ValeursFoncieres
+from table import *
 
 
-if __name__ == "__main":  
+if __name__ == "__main__":  
     Base.metadata.create_all(engine)
