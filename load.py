@@ -108,7 +108,7 @@ def load_valeurs_foncieres(df):
     for item in liste_donnee:
         row = ValeursFoncieres_final(**item)
         session.add(row)
-session.commit()
+    session.commit()
 
 raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
 transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
@@ -147,7 +147,7 @@ def load_taux(df):
     for taux in liste_donnee:
         row = Taux_final(**taux)
         session.add(row)
-session.commit()
+    session.commit()
 
 
 
