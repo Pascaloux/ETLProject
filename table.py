@@ -49,12 +49,21 @@ class ValeursFoncieres(Base):
     SurfaceTerrain          = Column(Integer)
 
 
-class Bank_capitalisation(Base):
+class Bank_cap_temp(Base):
     __tablename__ = "Bank_capitalisation"
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer,primary_key=True)
     Name = Column(String(500))
     Market_Cap = Column(Float)
+    identifier = column_property(Name + " " + cast( Market_Cap,String))
 
+class Bank_cap_final(Base):
+    __tablename__ = "Bank_cap_final"
+    __table_args__ = {'extend_existing': True}
+    id = Column(Integer,primary_key=True)
+    Name = Column(String(500))
+    Market_Cap = Column(Float)
+    identifier = column_property(Name + " " +cast( Market_Cap,String))
 
 class Taux(Base):
     __tablename__ = "taux"
