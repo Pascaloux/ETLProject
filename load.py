@@ -1,3 +1,4 @@
+from pyrsistent import v
 from sqlalchemy import *
 from sqlalchemy_utils import *
 from sqlalchemy.orm import *
@@ -7,7 +8,6 @@ from tqdm import tqdm
 
 
 def load_date_valeurs_foncieres(date):
-    print("Chargement de la date des valeurs foncières")
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -19,14 +19,12 @@ def load_date_valeurs_foncieres(date):
 
 def load_valeurs_foncieres(df):
 
-    print("Chargement des valeurs foncières")
     result=df.to_dict('records')
     
     Session = sessionmaker(bind=engine)
     session = Session()
-    print("Dictionnaire chargé")
     for item in tqdm(result):
-        row = ValeursFoncieres( NoDisposition = item['No disposition'],
+        row = ValeursFoncieres_temp( NoDisposition = item['No disposition'],
                                 DateMutation = item['Date mutation'],
                                 NatureMutation = item['Nature mutation'],
                                 ValeurFonciere = item['Valeur fonciere'],
@@ -62,10 +60,106 @@ def load_valeurs_foncieres(df):
                                 NatureCultureSpeciale = item['Nature culture speciale'],
                                 SurfaceTerrain = item['Surface terrain']
                                 )
-        session.add(row)
-        
+        session.add(row) 
 
     session.commit()
+    clean_transaction_ids = session.query(ValeursFoncieres_final.transaction_id)
+    transaction_to_insert = session.query(ValeursFoncieres_temp).filter(~ValeursFoncieres_temp.transaction_id.in_(clean_transaction_ids))
+
+    liste_donnee =[]
+    for row in transaction_to_insert:
+        dico_final={}
+        dico_final["NoDisposition"] = row.NoDisposition
+        dico_final["DateMutation"]= row.DateMutation
+        dico_final["NatureMutation"]= row.NatureMutation
+        dico_final["ValeurFonciere"]= row.ValeurFonciere
+        dico_final["NoVoie"]= row.NoVoie
+        dico_final["BTQ"]= row.BTQ
+        dico_final["TypeVoie"]= row.TypeVoie
+        dico_final["CodeVoie"]= row.CodeVoie
+        dico_final["Voie"]= row.Voie
+        dico_final["CodePostal"]= row.CodePostal
+        dico_final["Commune"]= row.Commune
+        dico_final["PrefixeSection"]= row.PrefixeSection
+        dico_final["CodeCommune"]= row.CodeCommune
+        dico_final["Section"]= row.Section
+        dico_final["NoPlan"]= row.NoPlan
+        dico_final["NoVolume"]= row.NoVolume
+        dico_final["Lot1"]= row.Lot1 
+        dico_final["CarrezLot1"]= row.CarrezLot1
+        dico_final["Lot2"]= row.Lot2 
+        dico_final["CarrezLot2"]= row.CarrezLot2
+        dico_final["Lot3"]= row.Lot3
+        dico_final["CarrezLot3"]= row.CarrezLot3
+        dico_final["Lot4"]= row.Lot4
+        dico_final["CarrezLot4"]= row.CarrezLot4
+        dico_final["Lot5"]= row.Lot5
+        dico_final["CarrezLot5"]= row.CarrezLot5
+        dico_final["NombreLots"]= row.NombreLots
+        dico_final["CodeTypeLocal"]= row.CodeTypeLocal
+        dico_final["TypeLocal"]= row.TypeLocal
+        dico_final["SurfaceReelleBati"]= row.SurfaceReelleBati
+        dico_final["NombrePiecesPrincipales"]= row.NombrePiecesPrincipales
+        dico_final["NatureCulture"]= row.NatureCulture
+        dico_final["NatureCultureSpeciale"]= row.NatureCultureSpeciale
+        dico_final["SurfaceTerrain"]= row.SurfaceTerrain
+
+        liste_donnee.append(dico_final)
+    for item in liste_donnee:
+        row = ValeursFoncieres_final(**item)
+        session.add(row)
+session.commit()
+
+raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
+transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
+
+liste_donnee =[]
+for row in transaction_to_insert:
+    dico_final={}
+    dico_final["NoDisposition"] = row.NoDisposition
+    dico_final["DateMutation"]= row.DateMutation
+    dico_final["NatureMutation"]= row.NatureMutation
+    dico_final["ValeurFonciere"]= row.ValeurFonciere
+    dico_final["NoVoie"]= row.NoVoie
+    dico_final["BTQ"]= row.BTQ
+    dico_final["TypeVoie"]= row.TypeVoie
+    dico_final["CodeVoie"]= row.CodeVoie
+    dico_final["Voie"]= row.Voie
+    dico_final["CodePostal"]= row.CodePostal
+    dico_final["Commune"]= row.Commune
+    dico_final["PrefixeSection"]= row.PrefixeSection
+    dico_final["CodeCommune"]= row.CodeCommune
+    dico_final["Section"]= row.Section
+    dico_final["NoPlan"]= row.NoPlan
+    dico_final["NoVolume"]= row.NoVolume
+    dico_final["Lot1"]= row.Lot1 
+    dico_final["CarrezLot1"]= row.CarrezLot1
+    dico_final["Lot2"]= row.Lot2 
+    dico_final["CarrezLot2"]= row.CarrezLot2
+    dico_final["Lot3"]= row.Lot3
+    dico_final["CarrezLot3"]= row.CarrezLot3
+    dico_final["Lot4"]= row.Lot4
+    dico_final["CarrezLot4"]= row.CarrezLot4
+    dico_final["Lot5"]= row.Lot5
+    dico_final["CarrezLot5"]= row.CarrezLot5
+    dico_final["NombreLots"]= row.NombreLots
+    dico_final["CodeTypeLocal"]= row.CodeTypeLocal
+    dico_final["TypeLocal"]= row.TypeLocal
+    dico_final["SurfaceReelleBati"]= row.SurfaceReelleBati
+    dico_final["NombrePiecesPrincipales"]= row.NombrePiecesPrincipales
+    dico_final["NatureCulture"]= row.NatureCulture
+    dico_final["NatureCultureSpeciale"]= row.NatureCultureSpeciale
+    dico_final["SurfaceTerrain"]= row.SurfaceTerrain
+
+liste_donnee.append(dico_final)
+for item in liste_donnee:
+    row = ValeursFoncieres_final(**item)
+    session.delete(row)
+session.commit()
+
+ValeursFoncieres_temp.__table__.drop(engine)
+
+
 
 
 def load_taux(df):
