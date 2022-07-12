@@ -75,10 +75,11 @@ def load_taux(df):
         dico[i]["devise"]=liste_index[i]
 
     for taux in dico:
-        row = Taux(devise=taux['devise'],valeur=taux['rates'])
+        row = Taux_temp(devise=taux['devise'],valeur=taux['rates'])
         print(row)
         session.add(row)
     session.commit()
+    
 
 
 def load_Capitaux(data):
