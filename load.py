@@ -110,11 +110,11 @@ def load_valeurs_foncieres(df):
         session.add(row)
     session.commit()
 
-raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
-transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
-for item in transaction_to_delete :
-        session.delete(item)
-session.commit()
+    raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
+    transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
+    for item in transaction_to_delete :
+            session.delete(item)
+    session.commit()
 
 ValeursFoncieres_temp.__table__.drop(engine)
 
@@ -147,6 +147,12 @@ def load_taux(df):
     for taux in liste_donnee:
         row = Taux_final(**taux)
         session.add(row)
+    session.commit()
+
+    raw_transaction_ids = session.query(Taux_temp.transaction_id)
+    transaction_to_delete = session.query(Taux_final).filter(~Taux_final.transaction_id.in_(raw_transaction_ids))
+    for row in transaction_to_delete:
+        session.delete(row)
     session.commit()
 
 
