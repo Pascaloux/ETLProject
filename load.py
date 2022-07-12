@@ -84,7 +84,34 @@ def load_taux(df):
 def load_Capitaux(data):
     result = [{col:getattr(row, col) for col in data} for row in data.itertuples()]
     for item in result:
-        row = Bank_capitalisation(Name=item['Name'], Market_Cap = item['Market_Cap_Euro_Billion'] )
+        row = Bank_cap_temp(Name=item['Name'], Market_Cap = item['Market_Cap_Euro_Billion'] )
         session.add(row)
     session.commit()
+    clean_id = session.query(Bank_cap_final.identifier)
+    id_to_insert = session.query(Bank_cap_temp).filter(~Bank_cap_temp.identifier.in_(clean_id))
+    liste_donnee =[]
+    for row in id_to_insert:
+        dico_final={}
+        dico_final["Name"] = row.Name
+        dico_final["Market_Cap"]= row.Market_Cap
+        liste_donnee.append(dico_final)
+    for item in liste_donnee:
+        row = Bank_cap_final(**item )
+        session.add(row)
+    session.commit()
+    raw_id = session.query(Bank_cap_temp.identifier)
+    id_to_delete = session.query(Bank_cap_final).filter(~Bank_cap_final.identifier.in_(raw_id))
+    liste_donnee =[]
+    for row in id_to_delete:
+        dico_final={}
+        dico_final["Name"] = row.Name
+        dico_final["Market_Cap"]= row.Market_Cap
+        liste_donnee.append(dico_final)
+    for item in liste_donnee:
+        row = Bank_cap_final(**item )
+        session.delete(row)
+    session.commit()
+    Bank_cap_temp.__table__.drop(engine)
+
+
     
