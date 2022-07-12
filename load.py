@@ -79,7 +79,24 @@ def load_taux(df):
         print(row)
         session.add(row)
     session.commit()
-    
+
+    clean_transaction_ids = session.query(Taux_final.transaction_id)
+    transaction_to_insert = session.query(Taux_temp).filter(~Taux_temp.transaction_id.in_(clean_transaction_ids))
+
+    liste_donnee =[]
+    for row in transaction_to_insert:
+        dico_final={}
+        dico_final["devise"] = row.devise
+        dico_final["valeur"]= row.valeur
+        liste_donnee.append(dico_final)
+
+
+    for taux in liste_donnee:
+        row = Taux_final(**taux)
+        session.add(row)
+session.commit()
+
+
 
 
 def load_Capitaux(data):
