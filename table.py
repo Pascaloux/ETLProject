@@ -65,8 +65,16 @@ class Bank_cap_final(Base):
     Market_Cap = Column(Float)
     identifier = column_property(Name + " " +cast( Market_Cap,String))
 
-class Taux(Base):
+class Taux_temp(Base):
     __tablename__ = "taux"
     id = Column(Integer,primary_key=True)
     devise= Column(String(4))
     valeur = Column(Float)
+    transaction_id= column_property(devise+" "+cast(valeur,String))
+
+class Taux_final(Base):
+    __tablename__ = "taux"
+    id = Column(Integer,primary_key=True)
+    devise= Column(String(4))
+    valeur = Column(Float)
+    transaction_id= column_property(devise+" "+cast(valeur,String))
