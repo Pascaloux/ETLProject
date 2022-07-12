@@ -112,49 +112,8 @@ session.commit()
 
 raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
 transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
-
-liste_donnee =[]
-for row in transaction_to_insert:
-    dico_final={}
-    dico_final["NoDisposition"] = row.NoDisposition
-    dico_final["DateMutation"]= row.DateMutation
-    dico_final["NatureMutation"]= row.NatureMutation
-    dico_final["ValeurFonciere"]= row.ValeurFonciere
-    dico_final["NoVoie"]= row.NoVoie
-    dico_final["BTQ"]= row.BTQ
-    dico_final["TypeVoie"]= row.TypeVoie
-    dico_final["CodeVoie"]= row.CodeVoie
-    dico_final["Voie"]= row.Voie
-    dico_final["CodePostal"]= row.CodePostal
-    dico_final["Commune"]= row.Commune
-    dico_final["PrefixeSection"]= row.PrefixeSection
-    dico_final["CodeCommune"]= row.CodeCommune
-    dico_final["Section"]= row.Section
-    dico_final["NoPlan"]= row.NoPlan
-    dico_final["NoVolume"]= row.NoVolume
-    dico_final["Lot1"]= row.Lot1 
-    dico_final["CarrezLot1"]= row.CarrezLot1
-    dico_final["Lot2"]= row.Lot2 
-    dico_final["CarrezLot2"]= row.CarrezLot2
-    dico_final["Lot3"]= row.Lot3
-    dico_final["CarrezLot3"]= row.CarrezLot3
-    dico_final["Lot4"]= row.Lot4
-    dico_final["CarrezLot4"]= row.CarrezLot4
-    dico_final["Lot5"]= row.Lot5
-    dico_final["CarrezLot5"]= row.CarrezLot5
-    dico_final["NombreLots"]= row.NombreLots
-    dico_final["CodeTypeLocal"]= row.CodeTypeLocal
-    dico_final["TypeLocal"]= row.TypeLocal
-    dico_final["SurfaceReelleBati"]= row.SurfaceReelleBati
-    dico_final["NombrePiecesPrincipales"]= row.NombrePiecesPrincipales
-    dico_final["NatureCulture"]= row.NatureCulture
-    dico_final["NatureCultureSpeciale"]= row.NatureCultureSpeciale
-    dico_final["SurfaceTerrain"]= row.SurfaceTerrain
-
-liste_donnee.append(dico_final)
-for item in liste_donnee:
-    row = ValeursFoncieres_final(**item)
-    session.delete(row)
+for item in transaction_to_delete :
+        session.delete(item)
 session.commit()
 
 ValeursFoncieres_temp.__table__.drop(engine)
@@ -213,15 +172,8 @@ def load_Capitaux(data):
     session.commit()
     raw_id = session.query(Bank_cap_temp.identifier)
     id_to_delete = session.query(Bank_cap_final).filter(~Bank_cap_final.identifier.in_(raw_id))
-    liste_donnee =[]
-    for row in id_to_delete:
-        dico_final={}
-        dico_final["Name"] = row.Name
-        dico_final["Market_Cap"]= row.Market_Cap
-        liste_donnee.append(dico_final)
-    for item in liste_donnee:
-        row = Bank_cap_final(**item )
-        session.delete(row)
+    for item in id_to_delete:
+        session.delete(item)
     session.commit()
     Bank_cap_temp.__table__.drop(engine)
 
