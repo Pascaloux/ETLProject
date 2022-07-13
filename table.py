@@ -6,7 +6,8 @@ from base import Base
 
 class DateValeursFoncieres(Base):
     __tablename__ = "DateValeursFoncieres"
-    DateMAJ       = Column(String(20),primary_key=True)
+    IdDateMaj     = Column(Integer,primary_key=True)
+    DateMAJ       = Column(String(20))
 
 
 class ValeursFoncieres(Base):
@@ -41,7 +42,7 @@ class ValeursFoncieres(Base):
     CarrezLot5              = Column(Float)
     NombreLots              = Column(Integer)
     CodeTypeLocal           = Column(Integer)
-    TypeLocal               = Column(String(25))
+    TypeLocal               = Column(String(45))
     SurfaceReelleBati       = Column(Integer)
     NombrePiecesPrincipales = Column(Integer)
     NatureCulture           = Column(String(2))

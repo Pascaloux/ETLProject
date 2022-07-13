@@ -5,7 +5,7 @@ from sqlalchemy.orm import *
 username = input("username : ")
 password = input("password : ")
 
-path="mysql://"+username+":"+password+"@localhost:3306/test"
+path="mysql://"+username+":"+password+"@localhost:3306/databaseETL"
 engine = create_engine(path)
 
 if not database_exists(path):

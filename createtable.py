@@ -1,3 +1,4 @@
+from sympy import root
 from base import Base, engine
 from table import *
 

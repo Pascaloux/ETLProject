@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 
 def load_date_valeurs_foncieres(date):
+    
     print("Chargement de la date des valeurs foncières")
 
     Session = sessionmaker(bind=engine)
@@ -20,11 +21,12 @@ def load_date_valeurs_foncieres(date):
 def load_valeurs_foncieres(df):
 
     print("Chargement des valeurs foncières")
+    
     result=df.to_dict('records')
     
     Session = sessionmaker(bind=engine)
     session = Session()
-    print("Dictionnaire chargé")
+    
     for item in tqdm(result):
         row = ValeursFoncieres( NoDisposition = item['No disposition'],
                                 DateMutation = item['Date mutation'],
@@ -64,11 +66,13 @@ def load_valeurs_foncieres(df):
                                 )
         session.add(row)
         
-
     session.commit()
 
 
 def load_taux(df):
+
+    print("Chargement des taux de change")
+
     dico=df.to_dict("records")
     liste_index=df.index
     for i in range(len(dico)):
@@ -82,6 +86,9 @@ def load_taux(df):
 
 
 def load_Capitaux(data):
+    
+    print("Chargement du classement des plus grosses banques")
+    
     result = [{col:getattr(row, col) for col in data} for row in data.itertuples()]
     for item in result:
         row = Bank_capitalisation(Name=item['Name'], Market_Cap = item['Market_Cap_Euro_Billion'] )
