@@ -27,10 +27,10 @@ def load_valeurs_foncieres(df):
     nb_ligne=session.query(DateValeursFoncieres).count()
     if nb_ligne >=2:
 
-        dates=session.query(DateValeursFoncieres).order_by(desc(DateValeursFoncieres.IdDateMaj)).limit(2)
+        dates=session.query(DateValeursFoncieres).order_by(desc(DateValeursFoncieres.id)).limit(2)
 
-        date1 = dates[0].DateMaj
-        date2 = dates[1].DateMaj
+        date1 = dates[0].valeur
+        date2 = dates[1].valeur
         if date1 == date2:
             bool=False
     
