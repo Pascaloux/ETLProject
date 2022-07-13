@@ -27,7 +27,7 @@ def extract_valeurs_foncieres():
 
     # Enregistrement des données dans un dataframe avec le bon format date
     df = pd.read_csv(url, delimiter='|', parse_dates=['Date mutation'], dayfirst=True)
-
+    df.to_csv("Donnees\\DonneesBrutes\\valeur_foncieres.csv",sep=";")
     return df
 
 
@@ -45,6 +45,7 @@ def extract_capitaux():
         Capitalisation.append(row.find_all('td')[2].getText().rstrip('\n'))
     data = pd.DataFrame({"Name" : Noms, "Market Cap (US$ Billion)" : Capitalisation})
     data["Market Cap (US$ Billion)"]= data["Market Cap (US$ Billion)"].str.replace(r"\[.*\]","")
+    data.to_csv("Donnees\\DonneesBrutes\\capitaux.csv",sep=";")
     return data
 
 
@@ -56,6 +57,7 @@ def extract_taux():
     req = requests.get(url)
     contenu_json = req.json()
     df = pd.DataFrame(contenu_json)
+    df.to_csv("Donnees\\DonneesBrutes\\taux.csv",sep=";")
     return df
 
 
