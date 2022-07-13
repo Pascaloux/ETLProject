@@ -47,7 +47,8 @@ def transform_valeurs_foncieres(df):
 
     # Changer le format des np.nan en None
     df = df.replace({np.nan:None})
-    
+    df.to_csv("Donnees\\DonneesPropres\\valeur_foncieres.csv",sep=";")
+
     return df
 
 
@@ -56,6 +57,8 @@ def transform_taux(df):
     print("Transformation des taux de change")
 
     df=df.drop(["success", "timestamp","base","date"], axis=1)
+    df.to_csv("Donnees\\DonneesPropres\\taux.csv",sep=";")
+
     return df
 
 
@@ -67,4 +70,6 @@ def transform_capitaux(data,df_taux):
     data[["Market Cap (US$ Billion)"]]=data[["Market Cap (US$ Billion)"]].astype(float)
     data["Market_Cap(Eur_Billion)"] = data["Market Cap (US$ Billion)"]*taux_change
     data["Market_Cap_Euro_Billion"]= data["Market_Cap(Eur_Billion)"].round(2)
+    data.to_csv("Donnees\\DonneesPropres\\capitaux.csv",sep=";")
+
     return data[['Name','Market_Cap_Euro_Billion']]
