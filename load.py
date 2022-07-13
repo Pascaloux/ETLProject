@@ -21,6 +21,8 @@ def load_date_valeurs_foncieres(date):
 
 
 def load_valeurs_foncieres(df):
+    Session = sessionmaker(bind=engine)
+    session = Session()
     bool = True
     nb_ligne=session.query(DateValeursFoncieres).count()
     if nb_ligne >=2:
@@ -38,9 +40,6 @@ def load_valeurs_foncieres(df):
 
         result=df.to_dict('records')
         
-        Session = sessionmaker(bind=engine)
-        session = Session()
-
         for item in tqdm(result):
             row = ValeursFoncieres_temp( NoDisposition = item['No disposition'],
                                     DateMutation = item['Date mutation'],
