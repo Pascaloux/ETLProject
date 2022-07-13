@@ -27,7 +27,7 @@ def extract_valeurs_foncieres():
 
     # Enregistrement des données dans un dataframe avec le bon format date
     df = pd.read_csv(url, delimiter='|', parse_dates=['Date mutation'], dayfirst=True)
-    df.to_csv("Donnees\\DonneesBrutes\\valeur_foncieres.csv",sep=";")
+    df.to_csv("Donnees\\DonneesBrutes\\valeurs_foncieres.csv",sep=";")
     return df
 
 
