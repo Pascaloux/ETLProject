@@ -122,8 +122,9 @@ def load_valeurs_foncieres(df):
     for item in transaction_to_delete :
             session.delete(item)
     session.commit()
+    session.execute("delete from ValeursFoncieres_temp")
+    session.commit()
 
-ValeursFoncieres_temp.__table__.drop(engine)
 
 
 
@@ -164,6 +165,8 @@ def load_taux(df):
     for row in transaction_to_delete:
         session.delete(row)
     session.commit()
+    session.execute("delete from Taux_temp")
+    session.commit()
 
 
 
@@ -195,6 +198,8 @@ def load_Capitaux(data):
         session.delete(item)
     session.commit()
     Bank_cap_temp.__table__.drop(engine)
+    session.execute("delete from Bank_cap_temp")
+    session.commit()
 
 
     
