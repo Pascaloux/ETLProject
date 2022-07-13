@@ -10,7 +10,7 @@ df_raw_capitaux = extract.extract_capitaux()
 
 #Transformation des données
 df_prep = transform.transform_valeurs_foncieres(df_raw)
-df_prep_taux=transform.transform_taux()
+df_prep_taux=transform.transform_taux(df_raw_taux)
 df_prep_capitaux=transform.transform_capitaux(df_raw_capitaux,df_prep_taux)
 
 # Chargement des données
