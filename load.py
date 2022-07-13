@@ -21,109 +21,121 @@ def load_date_valeurs_foncieres(date):
 
 
 def load_valeurs_foncieres(df):
+    bool = True
+    nb_ligne=session.query(DateValeursFoncieres).count()
+    if nb_ligne >=2:
 
-    print("Chargement des valeurs foncières")
+        dates=session.query(DateValeursFoncieres).order_by(desc(DateValeursFoncieres.id)).limit(2)
 
-    result=df.to_dict('records')
+        date1 = dates[0].valeur
+        date2 = dates[1].valeur
+        if date1 == date2:
+            bool=False
     
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    if bool:
 
-    for item in tqdm(result):
-        row = ValeursFoncieres_temp( NoDisposition = item['No disposition'],
-                                DateMutation = item['Date mutation'],
-                                NatureMutation = item['Nature mutation'],
-                                ValeurFonciere = item['Valeur fonciere'],
-                                NoVoie = item['No voie'],
-                                BTQ = item['B/T/Q'],
-                                TypeVoie = item['Type de voie'],
-                                CodeVoie = item['Code voie'],
-                                Voie = item['Voie'],
-                                CodePostal = item['Code postal'],
-                                Commune = item['Commune'],
-                                CodeDepartement = item['Code departement'],
-                                CodeCommune = item['Code commune'],
-                                PrefixeSection = item['Prefixe de section'],
-                                Section = item['Section'],
-                                NoPlan = item['No plan'],
-                                NoVolume = item['No Volume'],
-                                Lot1 = item['1er lot'],
-                                CarrezLot1 = item['Surface Carrez du 1er lot'],
-                                Lot2 = item['2eme lot'],
-                                CarrezLot2 = item['Surface Carrez du 2eme lot'],
-                                Lot3 = item['3eme lot'],
-                                CarrezLot3 = item['Surface Carrez du 3eme lot'],
-                                Lot4 = item['4eme lot'],
-                                CarrezLot4 = item['Surface Carrez du 4eme lot'],
-                                Lot5 = item['5eme lot'],
-                                CarrezLot5 = item['Surface Carrez du 5eme lot'],
-                                NombreLots = item['Nombre de lots'],
-                                CodeTypeLocal = item['Code type local'],
-                                TypeLocal = item['Type local'],
-                                SurfaceReelleBati = item['Surface reelle bati'],
-                                NombrePiecesPrincipales = item['Nombre pieces principales'],
-                                NatureCulture = item['Nature culture'],
-                                NatureCultureSpeciale = item['Nature culture speciale'],
-                                SurfaceTerrain = item['Surface terrain']
-                                )
+        print("Chargement des valeurs foncières")
 
-        session.add(row) 
+        result=df.to_dict('records')
+        
+        Session = sessionmaker(bind=engine)
+        session = Session()
 
-    session.commit()
-    clean_transaction_ids = session.query(ValeursFoncieres_final.transaction_id)
-    transaction_to_insert = session.query(ValeursFoncieres_temp).filter(~ValeursFoncieres_temp.transaction_id.in_(clean_transaction_ids))
+        for item in tqdm(result):
+            row = ValeursFoncieres_temp( NoDisposition = item['No disposition'],
+                                    DateMutation = item['Date mutation'],
+                                    NatureMutation = item['Nature mutation'],
+                                    ValeurFonciere = item['Valeur fonciere'],
+                                    NoVoie = item['No voie'],
+                                    BTQ = item['B/T/Q'],
+                                    TypeVoie = item['Type de voie'],
+                                    CodeVoie = item['Code voie'],
+                                    Voie = item['Voie'],
+                                    CodePostal = item['Code postal'],
+                                    Commune = item['Commune'],
+                                    CodeDepartement = item['Code departement'],
+                                    CodeCommune = item['Code commune'],
+                                    PrefixeSection = item['Prefixe de section'],
+                                    Section = item['Section'],
+                                    NoPlan = item['No plan'],
+                                    NoVolume = item['No Volume'],
+                                    Lot1 = item['1er lot'],
+                                    CarrezLot1 = item['Surface Carrez du 1er lot'],
+                                    Lot2 = item['2eme lot'],
+                                    CarrezLot2 = item['Surface Carrez du 2eme lot'],
+                                    Lot3 = item['3eme lot'],
+                                    CarrezLot3 = item['Surface Carrez du 3eme lot'],
+                                    Lot4 = item['4eme lot'],
+                                    CarrezLot4 = item['Surface Carrez du 4eme lot'],
+                                    Lot5 = item['5eme lot'],
+                                    CarrezLot5 = item['Surface Carrez du 5eme lot'],
+                                    NombreLots = item['Nombre de lots'],
+                                    CodeTypeLocal = item['Code type local'],
+                                    TypeLocal = item['Type local'],
+                                    SurfaceReelleBati = item['Surface reelle bati'],
+                                    NombrePiecesPrincipales = item['Nombre pieces principales'],
+                                    NatureCulture = item['Nature culture'],
+                                    NatureCultureSpeciale = item['Nature culture speciale'],
+                                    SurfaceTerrain = item['Surface terrain']
+                                    )
 
-    liste_donnee =[]
-    for row in transaction_to_insert:
-        dico_final={}
-        dico_final["NoDisposition"] = row.NoDisposition
-        dico_final["DateMutation"]= row.DateMutation
-        dico_final["NatureMutation"]= row.NatureMutation
-        dico_final["ValeurFonciere"]= row.ValeurFonciere
-        dico_final["NoVoie"]= row.NoVoie
-        dico_final["BTQ"]= row.BTQ
-        dico_final["TypeVoie"]= row.TypeVoie
-        dico_final["CodeVoie"]= row.CodeVoie
-        dico_final["Voie"]= row.Voie
-        dico_final["CodePostal"]= row.CodePostal
-        dico_final["Commune"]= row.Commune
-        dico_final["PrefixeSection"]= row.PrefixeSection
-        dico_final["CodeCommune"]= row.CodeCommune
-        dico_final["Section"]= row.Section
-        dico_final["NoPlan"]= row.NoPlan
-        dico_final["NoVolume"]= row.NoVolume
-        dico_final["Lot1"]= row.Lot1 
-        dico_final["CarrezLot1"]= row.CarrezLot1
-        dico_final["Lot2"]= row.Lot2 
-        dico_final["CarrezLot2"]= row.CarrezLot2
-        dico_final["Lot3"]= row.Lot3
-        dico_final["CarrezLot3"]= row.CarrezLot3
-        dico_final["Lot4"]= row.Lot4
-        dico_final["CarrezLot4"]= row.CarrezLot4
-        dico_final["Lot5"]= row.Lot5
-        dico_final["CarrezLot5"]= row.CarrezLot5
-        dico_final["NombreLots"]= row.NombreLots
-        dico_final["CodeTypeLocal"]= row.CodeTypeLocal
-        dico_final["TypeLocal"]= row.TypeLocal
-        dico_final["SurfaceReelleBati"]= row.SurfaceReelleBati
-        dico_final["NombrePiecesPrincipales"]= row.NombrePiecesPrincipales
-        dico_final["NatureCulture"]= row.NatureCulture
-        dico_final["NatureCultureSpeciale"]= row.NatureCultureSpeciale
-        dico_final["SurfaceTerrain"]= row.SurfaceTerrain
+            session.add(row) 
 
-        liste_donnee.append(dico_final)
-    for item in liste_donnee:
-        row = ValeursFoncieres_final(**item)
-        session.add(row)
-    session.commit()
+        session.commit()
+        clean_transaction_ids = session.query(ValeursFoncieres_final.transaction_id)
+        transaction_to_insert = session.query(ValeursFoncieres_temp).filter(~ValeursFoncieres_temp.transaction_id.in_(clean_transaction_ids))
 
-    raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
-    transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
-    for item in transaction_to_delete :
-            session.delete(item)
-    session.commit()
-    session.execute("delete from ValeursFoncieres_temp")
-    session.commit()
+        liste_donnee =[]
+        for row in transaction_to_insert:
+            dico_final={}
+            dico_final["NoDisposition"] = row.NoDisposition
+            dico_final["DateMutation"]= row.DateMutation
+            dico_final["NatureMutation"]= row.NatureMutation
+            dico_final["ValeurFonciere"]= row.ValeurFonciere
+            dico_final["NoVoie"]= row.NoVoie
+            dico_final["BTQ"]= row.BTQ
+            dico_final["TypeVoie"]= row.TypeVoie
+            dico_final["CodeVoie"]= row.CodeVoie
+            dico_final["Voie"]= row.Voie
+            dico_final["CodePostal"]= row.CodePostal
+            dico_final["Commune"]= row.Commune
+            dico_final["PrefixeSection"]= row.PrefixeSection
+            dico_final["CodeCommune"]= row.CodeCommune
+            dico_final["Section"]= row.Section
+            dico_final["NoPlan"]= row.NoPlan
+            dico_final["NoVolume"]= row.NoVolume
+            dico_final["Lot1"]= row.Lot1 
+            dico_final["CarrezLot1"]= row.CarrezLot1
+            dico_final["Lot2"]= row.Lot2 
+            dico_final["CarrezLot2"]= row.CarrezLot2
+            dico_final["Lot3"]= row.Lot3
+            dico_final["CarrezLot3"]= row.CarrezLot3
+            dico_final["Lot4"]= row.Lot4
+            dico_final["CarrezLot4"]= row.CarrezLot4
+            dico_final["Lot5"]= row.Lot5
+            dico_final["CarrezLot5"]= row.CarrezLot5
+            dico_final["NombreLots"]= row.NombreLots
+            dico_final["CodeTypeLocal"]= row.CodeTypeLocal
+            dico_final["TypeLocal"]= row.TypeLocal
+            dico_final["SurfaceReelleBati"]= row.SurfaceReelleBati
+            dico_final["NombrePiecesPrincipales"]= row.NombrePiecesPrincipales
+            dico_final["NatureCulture"]= row.NatureCulture
+            dico_final["NatureCultureSpeciale"]= row.NatureCultureSpeciale
+            dico_final["SurfaceTerrain"]= row.SurfaceTerrain
+
+            liste_donnee.append(dico_final)
+        for item in liste_donnee:
+            row = ValeursFoncieres_final(**item)
+            session.add(row)
+        session.commit()
+
+        raw_transaction_ids = session.query(ValeursFoncieres_temp.transaction_id)
+        transaction_to_delete = session.query(ValeursFoncieres_final).filter(~ValeursFoncieres_final.transaction_id.in_(raw_transaction_ids))
+        for item in transaction_to_delete :
+                session.delete(item)
+        session.commit()
+        session.execute("delete from ValeursFoncieres_temp")
+        session.commit()
 
 
 
