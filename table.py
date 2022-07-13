@@ -91,7 +91,7 @@ class ValeursFoncieres_final(Base):
     CarrezLot5              = Column(Float)
     NombreLots              = Column(Integer)
     CodeTypeLocal           = Column(Integer)
-    TypeLocal               = Column(String(25))
+    TypeLocal               = Column(String(45))
     SurfaceReelleBati       = Column(Integer)
     NombrePiecesPrincipales = Column(Integer)
     NatureCulture           = Column(String(2))
