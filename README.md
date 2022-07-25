@@ -12,6 +12,11 @@ Il faudra renseigner les paramètres de connexions a MySQL.
 Deuxièmement il faut exécuter le fichier execute.py qui fera successivement appel aux fonctions du fichiers extract.py, transform.py et load.py.
 Il faudra renseigner les paramètres de connexions a MySQL.
 
+# Sous-Dossiers
+- DonneesBrutes : contient les 3 fichiers csv de base créés avec le fichier extract.py
+- DonneesPropres : contient les 3 fichiers csv transformés avec le fichier transform.py
+(Dans chaque sous-dossier des données, les fichiers csv des valeurs foncieres n'ont pas pu être charger sur github à cause de leur taille trop importante )
+
 
 
 # ANALYSE DES DONNNEES
