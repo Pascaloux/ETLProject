@@ -29,8 +29,8 @@ def load_valeurs_foncieres(df):
 
         dates=session.query(DateValeursFoncieres).order_by(desc(DateValeursFoncieres.IdDateMaj)).limit(2)
 
-        date1 = dates[0].DateMaj
-        date2 = dates[1].DateMaj
+        date1 = dates[0].DateMAJ
+        date2 = dates[1].DateMAJ
         if date1 == date2:
             bool=False
     
@@ -144,6 +144,9 @@ def load_taux(df):
 
     print("Chargement des taux de change")
 
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     dico=df.to_dict("records")
     liste_index=df.index
     for i in range(len(dico)):
@@ -185,7 +188,10 @@ def load_taux(df):
 def load_Capitaux(data):
     
     print("Chargement du classement des plus grosses banques")
-    
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     result = [{col:getattr(row, col) for col in data} for row in data.itertuples()]
     for item in result:
         row = Bank_cap_temp(Name=item['Name'], Market_Cap = item['Market_Cap_Euro_Billion'] )
@@ -208,7 +214,7 @@ def load_Capitaux(data):
     for item in id_to_delete:
         session.delete(item)
     session.commit()
-    Bank_cap_temp.__table__.drop(engine)
+    
     session.execute("delete from Bank_cap_temp")
     session.commit()
 
