@@ -1,5 +1,21 @@
 # ETLProject
 
+# EXECUTION DU PROGRAMME
+Il y a trois fichiers pour la création de la base de données et quatre fichiers pour l'ETL.
+
+# Première partie : création de la base de données
+Premièrement il faut exécuter le fichier createtable.py pour créer la base de données ainsi que les tables.
+Le fichier createtable.py fera appel aux fichiers base.py et table.py.
+Il faudra renseigner les paramètres de connexions a MySQL.
+
+# Deuxième partie : remplissage de la base de données avec une méthode Extract-Transform-Load
+Deuxièmement il faut exécuter le fichier execute.py qui fera successivement appel aux fonctions du fichiers extract.py, transform.py et load.py.
+Il faudra renseigner les paramètres de connexions a MySQL.
+
+
+
+# ANALYSE DES DONNNEES
+
 # extract des valeurs foncières
 
 colonnes pertinentes : 
@@ -104,3 +120,4 @@ colonnes transformées en float:
 colonnes transformées du Dollar à l'Euro:
     . Market Cap (US$ Billion) ---->  Market_Cap(Eur_Billion)
     
+ 
