@@ -111,7 +111,7 @@ class ValeursFoncieres_final(Base):
 
 
 class Bank_cap_temp(Base):
-    __tablename__ = "Bank_capitalisation"
+    __tablename__ = "Bank_cap_temp"
     __table_args__ = {'extend_existing': True}
     id = Column(Integer,primary_key=True)
     Name = Column(String(500))
