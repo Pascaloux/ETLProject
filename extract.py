@@ -59,11 +59,3 @@ def extract_taux():
     df = pd.DataFrame(contenu_json)
     df.to_csv("Donnees\\DonneesBrutes\\taux.csv",sep=";")
     return df
-
-
-
-
-
-
-
-
